@@ -10,11 +10,24 @@ provider:
   region: ${opt:region, 'eu-central-1'}
 
 functions:
-  hello:
-    handler: handler.hello
+  oauth:
+    handler: ./OAuth/oauth.invoke
     environment:
-      TEST: ${env:TEST}
+      CONSUMER_KEY: ${env:CONSUMER_KEY}
+      CONSUMER_SECRET: ${env:CONSUMER_SECRET}
+
+  getOAuthToken:
+    handler: ./OAuth/requestToken.invoke
+    environment:
+      OAUTH_CALLBACK: ${env:OAUTH_CALLBACK}
     events:
       - http:
-          path: hello
+          path: oauth/requestToken
           method: get
+
+  getAccessToken:
+    handler: ./OAuth/accessToken.invoke
+    events:
+      - http:
+          path: oauth/accessToken
+          method: post
