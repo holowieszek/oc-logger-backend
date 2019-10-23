@@ -6,18 +6,20 @@ const returnResponse = require('../utils/returnResponse');
 const invoke = async event => {
   console.log(event);
 
+  const { oauthVerifier, oauthToken, oauthTokenSecret } = JSON.parse(event.body)
+
   const data = {
     url: 'https://opencaching.pl/okapi/services/oauth/access_token',
     method: 'POST',
     data: {
-      oauth_verifier: event.oauthVerifier,
-      oauth_token: event.oauthToken,
+      oauth_verifier: oauthVerifier,
+      oauth_token: oauthToken,
     }
   }
 
   const token = {
-    key: event.oauthToken,
-    secret: event.oauthTokenSecret
+    key: oauthToken,
+    secret: oauthTokenSecret
   }
 
   const { error, result } = await asyncWrapper(rp(
@@ -28,7 +30,7 @@ const invoke = async event => {
     }
   ));
 
-  return !error ? returnResponse(200, result) : returnResponse(error.statusCode, error.message);
+  return !error ? returnResponse(200, result) : returnResponse(error.statusCode, error);
 }
 
 exports.invoke = invoke;
