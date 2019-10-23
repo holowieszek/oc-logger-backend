@@ -1,0 +1,29 @@
+{
+  "name": "oc-logger-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holowieszek/oc-logger-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/holowieszek/oc-logger-backend/issues"
+  },
+  "homepage": "https://github.com/holowieszek/oc-logger-backend#readme",
+  "devDependencies": {
+    "serverless-dotenv-plugin": "^2.1.1"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "oauth-1.0a": "^2.2.6",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  }
+}
