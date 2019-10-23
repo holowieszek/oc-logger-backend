@@ -26,7 +26,8 @@ const invoke = async event => {
     {
       url: data.url,
       method: data.method,
-      form: oauth.authorize(data, token)
+      form: oauth.authorize(data, token),
+      json: true
     }
   ));
 
