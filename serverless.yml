@@ -31,3 +31,12 @@ functions:
       - http:
           path: oauth/accessToken
           method: post
+
+  getUser:
+    handler: ./OpenCaching/getUser.invoke
+    environment:
+      CONSUMER_KEY: ${env:CONSUMER_KEY}
+    events:
+      - http:
+          path: oc/user
+          method: post
