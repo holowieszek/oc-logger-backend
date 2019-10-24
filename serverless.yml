@@ -17,7 +17,7 @@ functions:
       CONSUMER_SECRET: ${env:CONSUMER_SECRET}
 
   getOAuthToken:
-    handler: ./OAuth/requestToken.invoke
+    handler: ./OAuth/GetRequestToken.invoke
     environment:
       OAUTH_CALLBACK: ${env:OAUTH_CALLBACK}
     events:
@@ -26,17 +26,26 @@ functions:
           method: get
 
   getAccessToken:
-    handler: ./OAuth/accessToken.invoke
+    handler: ./OAuth/GetAccessToken.invoke
     events:
       - http:
           path: oauth/accessToken
           method: post
 
   getUser:
-    handler: ./OpenCaching/getUser.invoke
+    handler: ./OpenCaching/GetUser.invoke
     environment:
       CONSUMER_KEY: ${env:CONSUMER_KEY}
     events:
       - http:
           path: oc/user
+          method: post
+  
+  getGeoCache:
+    handler: ./OpenCaching/GetGeoCache.invoke
+    environment:
+      CONSUMER_KEY: ${env:CONSUMER_KEY}
+    events:
+      - http:
+          path: oc/geocache
           method: post
