@@ -49,3 +49,15 @@ functions:
       - http:
           path: oc/geocache
           method: post
+
+  submitLogBook:
+    handler: ./OpenCaching/SubmitLogBook.invoke
+    # environment:
+    #   CONSUMER_KEY: ${env:CONSUMER_KEY}
+    #   CONSUMER_KEY: ${env:CONSUMER_KEY}
+    #   CONSUMER_SECRET: ${env:CONSUMER_SECRET}
+    events:
+      - http:
+          path: oc/logbook
+          method: post
+

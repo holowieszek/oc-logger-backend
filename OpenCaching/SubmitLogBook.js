@@ -6,15 +6,17 @@ const oauth = require('../OAuth/oauth');
 const invoke = async event => {
   console.log(event);
 
-  const { cacheCode, oauthToken, oauthTokenSecret } = JSON.parse(event.body);
+  const { cacheCode, logType, comment, when, oauthToken, oauthTokenSecret } = JSON.parse(event.body);
 
+  console.log({ cacheCode, logType, comment, when, oauthToken, oauthTokenSecret });
   const data = {
-    url: 'https://opencaching.pl/okapi/services/caches/geocache',
-    method: 'GET',
+    url: 'https://opencaching.pl/okapi/services/logs/submit',
+    method: 'POST',
     data: {
       cache_code: cacheCode,
-      oauth_consumer_key: process.env.CONSUMER_KEY,
-      fields: 'code|name|location|url|is_found'
+      logtype: logType,
+      comment: comment,
+      when: when
     }
   }
 
@@ -28,9 +30,12 @@ const invoke = async event => {
       url: data.url,
       method: data.method,
       qs: oauth.authorize(data, token),
-      json: true
+      json: true,
+      timeout: 500
     }
   ));
+
+  console.log('error, result', error, result);
 
   return !error ? returnResponse(201, result) : returnResponse(error.statusCode, error.body)
 }
